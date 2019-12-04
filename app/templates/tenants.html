@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+  <h1 class="display-4 text-center">
+    <i class="fas fa-book-open text-primary"></i>Tenants<span class="text-primary"></span></h1>
+
+  <div class="search">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"><br><br>
+  </div>
+
+  <form id="book-form">
+    <div class="form-group">
+      <label for="propertyid">Property ID</label>
+      <input type="number" id="propertyid" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="leaseid">Lease ID</label>
+      <input type="number" id="leaseid" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="tenantname">Name</label>
+      <input type="text" id="tenantname" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="credit">Credit Score</label>
+      <input type="text" id="credit" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="social">Social Security</label>
+      <input type="text" id="social" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" class="form-control">
+    </div>
+    <input type="submit" value="Add Tenant" class="btn btn-primary btn-block">
+  </form>
+
+  <div class="box1">
+    <br>
+    <div align='center'>
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th>Tenant ID</th>
+            <th>Property ID</th>
+            <th>Lease ID</th>
+            <th>Name</th>
+            <th>Credit Score</th>
+            <th>Social Security</th>
+            <th>Date of Birth</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>Example</td>
+          <td>700</td>
+          <td>310</td>
+          <td>01/01/2020</td>
+        </tr>
+
+        <tbody id="book-list"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  {% endblock %}

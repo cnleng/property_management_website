@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+  <h1 class="display-4 text-center">
+    <i class="fas fa-book-open text-primary"></i>Leases<span class="text-primary"></span></h1>
+
+  <div class="search">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"><br><br>
+  </div>
+
+  <form id="book-form">
+    <div class="form-group">
+      <label for="proeprtyid">Property ID</label>
+      <input type="number" id="propertyid" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="enddate">End Date</label>
+      <input type="date" id="enddate" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="length">Length</label>
+      <input type="number" id="length" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="rent">Rent</label>
+      <input type="number" id="rent" class="form-control">
+    </div>
+    <input type="submit" value="Add Lease" class="btn btn-primary btn-block">
+  </form>
+
+  <div class="box1">
+    <br>
+    <div align='center'>
+
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th>Lease ID</th>
+            <th>Property ID</th>
+            <th>End Date</th>
+            <th>Length</th>
+            <th>Rent</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>01/01/2020</td>
+          <td>365</td>
+          <td>1,500</td>
+        </tr>
+        <tbody id="book-list"></tbody>
+      </table>
+    </div>
+
+    {% endblock %}
