@@ -7,6 +7,9 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Integ
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
+class NewProperty(FlaskForm):
+    propertyId = IntegerField('Property ID', )
+
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
