@@ -6,6 +6,7 @@ from app import app
 from flask import Flask, render_template, url_for, flash, redirect
 from app.forms import LoginForm
 from .forms import RegistrationForm, LoginForm
+from .database import connect_to_database, execute_query
 #from wtforms.widgets.html5 import NumberInput
 #from wtforms.fields.html5 import DateField
 #from wtforms.validators import DataRequired, Length, NumberRange, ValidationError, AnyOf, Optional
@@ -28,6 +29,9 @@ def index():
 
 @app.route('/properties')
 def properties():
+    print("Fetching properties.")
+    db_connection = connect_to_database()
+    
     return render_template("properties.html")
 
 

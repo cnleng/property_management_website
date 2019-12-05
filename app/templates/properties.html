@@ -71,7 +71,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for property in properties %}
+         
         <tr>
           <td>1</td>
           <td>100 Bella Coola</td>
@@ -89,6 +89,43 @@
             <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
           </td>
         </tr>
+        {% for property in properties %}
+        <tr>
+            <td>
+              {{ trip[0] }}
+            </td>
+            <td>
+              {{ trip[1] }}
+            </td>
+            <td>
+              {{ trip[2] }}
+            </td>
+            <td>
+              {{ trip[3] }}
+            </td>
+            <td>
+              {{ trip[4] }}
+            </td>
+            <td>
+              {{ trip[5] }}
+            </td>
+            <td>
+              {{ trip[6] }}
+            </td>
+            <td>
+              {{ trip[7] }}
+            </td>
+            <td>
+              {{ trip[8] }}
+            </td>
+            <td>
+              <a class="btn btn-warning" href="{{ url_for('editproperty') }}">Edit</a>
+            </td>
+            <td>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
       </tbody>
 
         <!-- Delete Modal -->
