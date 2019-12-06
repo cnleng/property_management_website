@@ -5,6 +5,7 @@
 from app import app
 from flask import Flask, render_template, url_for, flash, redirect
 from app.forms import LoginForm
+from flask import request
 from .forms import RegistrationForm, LoginForm
 from .database import connect_to_database, execute_query
 #from wtforms.widgets.html5 import NumberInput
@@ -27,27 +28,66 @@ def index():
 #     return render_template("index.html")
 
 
-@app.route('/properties')
+@app.route('/properties', methods=['POST', 'GET'])
 def properties():
-    print("Fetching properties.")
-    db_connection = connect_to_database()
-    
-    return render_template("properties.html")
+    if request.method == 'GET':
+      print("Fetching properties.")
+      db_connection = connect_to_database()
+      query = "SELECT * FROM property"
+      result = execute_query(db_connection, query).fetchall()
+      print(result)
+      return render_template("properties.html", properties=result)
+
+    if request.method == 'POST':
+      print("Adding new property")
+      db_connection = connect_to_database()
+      Street_Address = request.form['address']
+      Unit_Number = request.form['unitnumber']
+      Zip_Code = request.form['zipcode']
+      Square_Feet = request.form['sf']
+      Rooms = request.form['rooms']
+      Bathrooms = request.form['bathrooms']
+      Management_Fee = request.form['fee']
+      Lease_ID = request.form['leaseid']
+      print(Street_Address)
+
+      query = "INSERT INTO property (Street_Address, Unit_Number, Zip_Code, Square_Feet, Rooms, Bathrooms, Management_Fee, Lease_ID) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+      data = (Street_Address, Unit_Number, Zip_Code, Square_Feet, Rooms, Bathrooms, Management_Fee, Lease_ID)
+      execute_query(db_connection, query, data)
+      print("Property added")
+      query2 = "SELECT * FROM property"
+      result = execute_query(db_connection, query2).fetchall()
+      return render_template("properties.html", properties=result)
 
 
 @app.route('/tenants')
 def tenants():
-    return render_template("tenants.html")
+    print("Fetching tenants.")
+    db_connection = connect_to_database()
+    query = "SELECT * FROM tenant"
+    result = execute_query(db_connection, query).fetchall()
+    print(result)
+    return render_template("tenants.html", tenants=result)
 
 
 @app.route('/owners')
 def owners():
-    return render_template("owners.html")
+    print("Fetching owners.")
+    db_connection = connect_to_database()
+    query = "SELECT * FROM owner"
+    result = execute_query(db_connection, query).fetchall()
+    print(result)
+    return render_template("owners.html", owners=result)
 
 
 @app.route('/leases')
 def leases():
-    return render_template("leases.html")
+    print("Fetching leases.")
+    db_connection = connect_to_database()
+    query = "SELECT * FROM lease"
+    result = execute_query(db_connection, query).fetchall()
+    print(result)
+    return render_template("leases.html", leases=result)
 
 
 @app.route('/editproperty')

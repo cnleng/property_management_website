@@ -4,7 +4,9 @@ from .db_credentials import host, user, password, db
 
 
 def connect_to_database(host = host, user = user, password = password, db = db):
+    print("In connect to database")
     db_connection = mariadb.connect(host, user, password, db)
+    print("Connected to database")
     return db_connection
 
 def execute_query(db_connection = None, query = None, query_params = ()):

@@ -54,24 +54,23 @@
             <th>Credit Score</th>
             <th>Social Security</th>
             <th>Date of Birth</th>
-            <th>Edit</th>
-            <th>Delete</th>
           </tr>
         </thead>
+        {% for tenant in tenants %}
         <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>Example</td>
-          <td>700</td>
-          <td>310</td>
-          <td>01/01/2020</td>
+            <td>{{ tenant[0] }}</td>
+            <td>{{ tenant[1] }}</td>
+            <td>{{ tenant[2] }}</td>
+            <td>{{ tenant[3] }}</td>
+            <td>{{ tenant[4] }}</td>
+            <td>{{ tenant[5] }}</td>
+            <td>{{ tenant[6] }}</td>
         </tr>
-
+        {% endfor %}
         <tbody id="book-list"></tbody>
       </table>
     </div>
   </div>
 </div>
 
-  {% endblock %}
+{% endblock %}

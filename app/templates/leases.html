@@ -15,7 +15,7 @@
 
   <form id="book-form">
     <div class="form-group">
-      <label for="proeprtyid">Property ID</label>
+      <label for="proeprtyid">Lease ID</label>
       <input type="number" id="propertyid" class="form-control">
     </div>
     <div class="form-group">
@@ -41,19 +41,27 @@
         <thead>
           <tr>
             <th>Lease ID</th>
-            <th>Property ID</th>
             <th>End Date</th>
             <th>Length</th>
             <th>Rent</th>
           </tr>
         </thead>
+        {% for lease in leases %}
         <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>01/01/2020</td>
-          <td>365</td>
-          <td>1,500</td>
+          <td>
+            {{ lease[0] }}
+          </td>
+          <td>
+            {{ lease[1] }}
+          </td>
+          <td>
+            {{ lease[2] }}
+          </td>
+          <td>
+            {{ lease[3] }}
+          </td>
         </tr>
+        {% endfor %}
         <tbody id="book-list"></tbody>
       </table>
     </div>
