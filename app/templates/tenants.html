@@ -13,39 +13,39 @@
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"><br><br>
   </div>
 
-  <form id="book-form">
+  <form id="book-form" action="/tenants" method="post">
     <div class="form-group">
       <label for="propertyid">Property ID</label>
-      <input type="number" id="propertyid" class="form-control">
+      <input type="number" name="propertyid" class="form-control">
     </div>
     <div class="form-group">
       <label for="leaseid">Lease ID</label>
-      <input type="number" id="leaseid" class="form-control">
+      <input type="number" name="leaseid" class="form-control">
     </div>
     <div class="form-group">
       <label for="tenantname">Name</label>
-      <input type="text" id="tenantname" class="form-control">
+      <input type="text" name="tenantname" class="form-control">
     </div>
     <div class="form-group">
       <label for="credit">Credit Score</label>
-      <input type="text" id="credit" class="form-control">
+      <input type="text" name="credit" class="form-control">
     </div>
     <div class="form-group">
       <label for="social">Social Security</label>
-      <input type="text" id="social" class="form-control">
+      <input type="text" name="social" class="form-control">
     </div>
     <div class="form-group">
       <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" class="form-control">
+      <input type="date" name="dob" class="form-control">
     </div>
-    <input type="submit" value="Add Tenant" class="btn btn-primary btn-block">
+    <input type="submit" value="Add Tenant" class="btn btn-primary btn-block btn-success">
   </form>
 
   <div class="box1">
     <br>
     <div align='center'>
       <table class="table table-striped mt-5">
-        <thead>
+        <thead class='table-active'> 
           <tr>
             <th>Tenant ID</th>
             <th>Property ID</th>
@@ -54,20 +54,29 @@
             <th>Credit Score</th>
             <th>Social Security</th>
             <th>Date of Birth</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
+
         {% for tenant in tenants %}
-        <tr>
-            <td>{{ tenant[0] }}</td>
-            <td>{{ tenant[1] }}</td>
-            <td>{{ tenant[2] }}</td>
-            <td>{{ tenant[3] }}</td>
-            <td>{{ tenant[4] }}</td>
-            <td>{{ tenant[5] }}</td>
-            <td>{{ tenant[6] }}</td>
+        <tr class='table-active'>
+          <td>{{ tenant[0] }}</td>
+          <td>{{ tenant[1] }}</td>
+          <td>{{ tenant[2] }}</td>
+          <td>{{ tenant[3] }}</td>
+          <td>{{ tenant[4] }}</td>
+          <td>{{ tenant[5] }}</td>
+          <td>{{ tenant[6] }}</td>
+          <td>
+            <a class="btn btn-warning" href="{{ url_for('edittenant') }}">Edit</a>
+          </td>
+          <td>
+            <a class="btn btn-danger" href="{{ url_for('deletetenant', Tenant_ID=tenant[0]) }}"" method='post'>Delete</a>
+              </td>
         </tr>
         {% endfor %}
-        <tbody id="book-list"></tbody>
+        <tbody id=" book-list"></tbody>
       </table>
     </div>
   </div>

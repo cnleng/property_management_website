@@ -13,24 +13,20 @@
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"><br><br>
   </div>
 
-  <form id="book-form">
-    <div class="form-group">
-      <label for="proeprtyid">Lease ID</label>
-      <input type="number" id="propertyid" class="form-control">
-    </div>
+  <form id="book-form" action="/leases" method="post">
     <div class="form-group">
       <label for="enddate">End Date</label>
-      <input type="date" id="enddate" class="form-control">
+      <input type="date" name="enddate" class="form-control">
     </div>
     <div class="form-group">
       <label for="length">Length</label>
-      <input type="number" id="length" class="form-control">
+      <input type="number" name="length" class="form-control">
     </div>
     <div class="form-group">
       <label for="rent">Rent</label>
-      <input type="number" id="rent" class="form-control">
+      <input type="number" name="rent" class="form-control">
     </div>
-    <input type="submit" value="Add Lease" class="btn btn-primary btn-block">
+    <input type="submit" value="Add Lease" class="btn btn-primary btn-block btn-success">
   </form>
 
   <div class="box1">
@@ -38,16 +34,18 @@
     <div align='center'>
 
       <table class="table table-striped mt-5">
-        <thead>
+        <thead class='table-dark'>
           <tr>
             <th>Lease ID</th>
             <th>End Date</th>
             <th>Length</th>
             <th>Rent</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         {% for lease in leases %}
-        <tr>
+        <tr class='table-active'>
           <td>
             {{ lease[0] }}
           </td>
@@ -60,9 +58,16 @@
           <td>
             {{ lease[3] }}
           </td>
+          <td>
+            <a class="btn btn-warning" href="{{ url_for('editlease') }}">Edit</a>
+          </td>
+          <td>
+            <a class="btn btn-danger" href="{{ url_for('deletelease', Lease_ID=lease[0]) }}"" method='post'>Delete</a>
+            </td>
         </tr>
+        
         {% endfor %}
-        <tbody id="book-list"></tbody>
+        <tbody id=" book-list"></tbody>
       </table>
     </div>
 

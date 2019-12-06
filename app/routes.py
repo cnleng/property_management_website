@@ -60,39 +60,168 @@ def properties():
       return render_template("properties.html", properties=result)
 
 
-@app.route('/tenants')
+@app.route('/tenants', methods=['POST', 'GET'])
 def tenants():
-    print("Fetching tenants.")
-    db_connection = connect_to_database()
-    query = "SELECT * FROM tenant"
-    result = execute_query(db_connection, query).fetchall()
-    print(result)
-    return render_template("tenants.html", tenants=result)
+    if request.method == 'GET':
+      print("Fetching tenants.")
+      db_connection = connect_to_database()
+      query = "SELECT * FROM tenant"
+      result = execute_query(db_connection, query).fetchall()
+      print(result)
+      return render_template("tenants.html", tenants=result)
+
+    if request.method == 'POST':
+      print("Adding new tenant.")
+      db_connection = connect_to_database()
+      Property_ID = request.form['propertyid']
+      Lease_ID = request.form['leaseid']
+      Name = request.form['tenantname']
+      Credit_Score = request.form['credit']
+      Social_Security = request.form['social']
+      Date_Of_Birth = request.form['dob']
+      print(Name)
+
+      query = "INSERT INTO tenant (Property_ID, Lease_ID, Name, Credit_Score, Social_Security, Date_Of_Birth) VALUES (%s, %s, %s, %s, %s, %s)"
+      data = (Property_ID, Lease_ID, Name, Credit_Score, Social_Security, Date_Of_Birth)
+      execute_query(db_connection, query, data)
+      print("Tenant added")
+      query2 = "SELECT * FROM tenant"
+      result = execute_query(db_connection, query2).fetchall()
+      return render_template("tenants.html", tenants=result)
 
 
-@app.route('/owners')
+@app.route('/owners', methods=['POST', 'GET'])
 def owners():
-    print("Fetching owners.")
-    db_connection = connect_to_database()
-    query = "SELECT * FROM owner"
-    result = execute_query(db_connection, query).fetchall()
-    print(result)
-    return render_template("owners.html", owners=result)
+    if request.method == 'GET':
+      print("Fetching owners.")
+      db_connection = connect_to_database()
+      query = "SELECT * FROM owner"
+      result = execute_query(db_connection, query).fetchall()
+      print(result)
+      return render_template("owners.html", owners=result)
+
+    if request.method == 'POST':
+      print("Adding new owner")
+      db_connection = connect_to_database()
+      Number_Of_Properties = request.form['numproperties']
+      Name = request.form['ownername']
+      print(Name)
+
+      query = "INSERT INTO owner (Number_Of_Properties, Name) VALUES (%s, %s)"
+      data = (Number_Of_Properties, Name)
+      execute_query(db_connection, query, data)
+      print("Owner added")
+      query2 = "SELECT * FROM owner"
+      result = execute_query(db_connection, query2).fetchall()
+      print(result)
+      return render_template("owners.html", owners=result)
 
 
-@app.route('/leases')
+@app.route('/leases', methods=['POST', 'GET'])
 def leases():
-    print("Fetching leases.")
-    db_connection = connect_to_database()
-    query = "SELECT * FROM lease"
-    result = execute_query(db_connection, query).fetchall()
-    print(result)
-    return render_template("leases.html", leases=result)
+    if request.method == 'GET':
+      print("Fetching leases.")
+      db_connection = connect_to_database()
+      query = "SELECT * FROM lease"
+      result = execute_query(db_connection, query).fetchall()
+      print(result)
+      return render_template("leases.html", leases=result)
+
+    if request.method == 'POST':
+      print("Adding new lease")
+      db_connection = connect_to_database()
+      End_Date = request.form['enddate']
+      Length_Of_Lease = request.form['length']
+      Rent = request.form['rent']
+      
+      query = "INSERT INTO lease (End_Date, Length_Of_Lease, Rent) VALUES (%s, %s, %s)"
+      data = (End_Date, Length_Of_Lease, Rent)
+      execute_query(db_connection, query, data)
+      print("Lease added")
+      query2 = "SELECT * FROM lease"
+      result = execute_query(db_connection, query2).fetchall()
+      print(result)
+      return render_template("leases.html", leases=result)
 
 
 @app.route('/editproperty')
 def editproperty():
+    print("Edit property")
     return render_template("editproperty.html")
+
+
+@app.route('/edittenant')
+def edittenant():
+    print("Edit tenant.")
+    return render_template("editproperty.html")
+
+
+@app.route('/editowner')
+def editowner():
+    print("Edit owner.")
+    return render_template("editproperty.html")
+
+
+@app.route('/editlease')
+def editlease():
+    print("Edit lease.")
+    return render_template("editproperty.html")
+
+
+@app.route('/deleteproperty/<Property_ID>')
+def deleteproperty(Property_ID):
+    print("Deleting property.")
+    db_connection = connect_to_database()
+    query = "DELETE FROM property WHERE Property_ID = %s"
+    data = (Property_ID, )
+
+    execute_query(db_connection, query, data)
+    query2 = "SELECT * FROM property"
+    result = execute_query(db_connection, query2).fetchall()
+    print(result)
+    return render_template("properties.html", properties=result)
+
+
+@app.route('/deletetenant/<Tenant_ID>')
+def deletetenant(Tenant_ID):
+    print("Deleting tenant.")
+    db_connection = connect_to_database()
+    query = "DELETE FROM tenant WHERE Tenant_ID = %s"
+    data = (Tenant_ID, )
+
+    execute_query(db_connection, query, data)
+    query2 = "SELECT * FROM tenant"
+    result = execute_query(db_connection, query2).fetchall()
+    print(result)
+    return render_template("tenants.html", tenants=result)
+
+
+@app.route('/deleteowner/<Owner_ID>')
+def deleteowner(Owner_ID):
+    print("Deleting owner.")
+    db_connection = connect_to_database()
+    query = "DELETE FROM owner WHERE Owner_ID = %s"
+    data = (Owner_ID, )
+
+    execute_query(db_connection, query, data)
+    query2 = "SELECT * FROM owner"
+    result = execute_query(db_connection, query2).fetchall()
+    print(result)
+    return render_template("owner.html", owners=result)    
+
+
+@app.route('/deletelease/<Lease_ID>')
+def deletelease(Lease_ID):
+    print("Deleting lease.")
+    db_connection = connect_to_database()
+    query = "DELETE FROM lease WHERE Lease_ID = %s"
+    data = (Lease_ID, )
+
+    execute_query(db_connection, query, data)
+    query2 = "SELECT * FROM lease"
+    result = execute_query(db_connection, query2).fetchall()
+    print(result)
+    return render_template("leases.html", leases=result)
 
 
 @app.route('/register', methods=['GET', 'POST'])
