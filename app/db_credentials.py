@@ -1,8 +1,6 @@
 import os, secrets 
 
-
-    #SECRET_KEY = secrets.token_hex(16)
-host = "classmysql.engr.oregonstate.edu"
-user = "cs340_hollingx"
+host = "us-cdbr-iron-east-05.cleardb.net"
+user = "bf79d35d3d3180"
 password = "7635"
-db = "cs340_hollingx"
+db = "heroku_35aaa71e5889a24"
