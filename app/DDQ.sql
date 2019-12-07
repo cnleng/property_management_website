@@ -20,8 +20,7 @@ CREATE TABLE property (
     Rooms INT NOT NULL, 
     Bathrooms DECIMAL (5,1) NOT NULL, 
     Management_Fee DECIMAL (19,2) NOT NULL, 
-    Lease_ID INT NOT NULL, 
-    FOREIGN KEY (Lease_ID) REFERENCES lease(Lease_ID) ON DELETE CASCADE);
+    Lease_ID INT NOT NULL);
 
 DROP TABLE IF EXISTS tenant;
 CREATE TABLE tenant (
@@ -31,9 +30,7 @@ CREATE TABLE tenant (
     Name VARCHAR(50) NOT NULL, 
     Credit_Score INT, 
     Social_Security INT NOT NULL, 
-    Date_Of_Birth DATE NOT NULL, 
-    FOREIGN KEY (Property_ID) REFERENCES property (Property_ID) ON DELETE CASCADE, 
-    FOREIGN KEY (Lease_ID) REFERENCES lease (Lease_ID) ON DELETE CASCADE);
+    Date_Of_Birth DATE NOT NULL);
 
 DROP TABLE IF EXISTS lease_owner;
 CREATE TABLE lease_owner (
