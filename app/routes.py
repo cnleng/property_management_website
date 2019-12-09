@@ -176,10 +176,32 @@ def editproperty(Property_ID):
       return redirect('/properties')
 
 
-@app.route('/edittenant')
-def edittenant():
-    print("Edit tenant.")
-    return render_template("editproperty.html")
+
+@app.route('/edittenant/<Tenant_ID>', methods=['POST', 'GET'])
+def edittenant(Tenant_ID):
+    print("Editing tenant")
+    db_connection = connect_to_database()
+
+    if request.method == 'GET':
+      query = 'SELECT Property_ID, Lease_ID, Name, Credit_Score, Social_Security, Date_Of_Birth from tenant WHERE Tenant_ID = %s' % (Tenant_ID)
+      result = execute_query(db_connection, query).fetchone()
+      print(result)
+      return render_template("edittenant.html", tenants=result)
+
+    if request.method == 'POST':
+      print("Updating tenant...")
+      Property_ID = request.form['property_id']
+      Lease_ID = request.form['lease_id']
+      Name = request.form['name']
+      Credit_score = request.form['credit_score']
+      Social_Security = request.form['social_security']
+      Date_Of_Birth = request.form['dob']
+
+      print(request.form)
+      query = 'UPDATE tenant SET Property_ID = %s, Lease_ID = %s, Name = %s, Credit_Score = %s, Social_Security = %s, Date_Of_Birth = %s WHERE Tenant_ID = %s'
+      data = (Property_ID, Lease_ID, Name, Credit_Score, Social_Security, Date_Of_Birth, Tenant_ID)
+      result = execute_query(db_connection, query, data)
+      return redirect('/tenants')
 
 
 @app.route('/editowner')

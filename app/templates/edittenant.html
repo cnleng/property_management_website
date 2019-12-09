@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+        <h1 class="display-4 text-center">
+          <i class="fas fa-book-open text-primary"></i> Edit Tenant<span class="text-primary"></span></h1>
+      
+        <br>
+        <div class="search">
+          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" align='right'><br><br>
+        </div>
+      
+        <form id="book-form" action="{{ url_for('edittenant', Tenant_ID=tenants[0]) }}" method="post" class='table-light'>
+          <div class="form-group">
+            <label for="property_id">Property ID</label>
+            <input type="text" name="property_id" class="form-control" value='{{ tenants[0] }}''>
+          </div>
+          <div class="form-group">
+            <label for="lease_id">Lease_ID</label>
+            <input type="text" name="lease_id" class="form-control" value={{ tenants[1] }}>
+          </div>
+          <div class="form-group">
+            <label for="zipcode">Name</label>
+            <input type="text" name="zipcode" class="form-control table-active" value={{ tenants[2] }}>
+          </div>
+          <div class="form-group">
+            <label for="credit_score">Credit Score</label>
+            <input type="text" name="credit_score" class="form-control" value={{ tenants[3] }}>
+          </div>
+          <div class="form-group">
+            <label for="social_security">Social Security</label>
+            <input type="number" name="social_security" class="form-control" value={{ tenants[4] }}>
+          </div>
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="number" name="dob" class="form-control" value={{ tenants[5] }}>
+          </div>
+      
+          <input type="submit" value="Edit Property" class="btn btn-primary btn-block btn-warning">
+        </form>
+
