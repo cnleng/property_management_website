@@ -69,7 +69,7 @@
           <td>{{ tenant[5] }}</td>
           <td>{{ tenant[6] }}</td>
           <td>
-            <a class="btn btn-warning" href="{{ url_for('edittenant') }}">Edit</a>
+            <a class="btn btn-warning" href="{{ url_for('edittenant', Tenant_ID=tenant[0]) }}">Edit</a>
           </td>
           <td>
             <a class="btn btn-danger" href="{{ url_for('deletetenant', Tenant_ID=tenant[0]) }}"" method='post'>Delete</a>

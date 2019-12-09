@@ -193,7 +193,7 @@ def edittenant(Tenant_ID):
       Property_ID = request.form['property_id']
       Lease_ID = request.form['lease_id']
       Name = request.form['name']
-      Credit_score = request.form['credit_score']
+      Credit_Score = request.form['credit_score']
       Social_Security = request.form['social_security']
       Date_Of_Birth = request.form['dob']
 
