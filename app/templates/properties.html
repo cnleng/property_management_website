@@ -101,7 +101,7 @@
               {{ property[8] }}
             </td>
             <td>
-              <a class="btn btn-warning" href="{{ url_for('editproperty') }}">Edit</a>
+              <a class="btn btn-warning" href="{{ url_for('editproperty', Property_ID=property[0]) }}" method='GET'>Edit</a>
             </td>
             <td>
               <a class="btn btn-danger" href="{{ url_for('deleteproperty', Property_ID=property[0]) }}"" method='post'>Delete</a>

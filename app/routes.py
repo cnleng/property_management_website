@@ -8,13 +8,15 @@ from app.forms import LoginForm
 from flask import request
 from .forms import RegistrationForm, LoginForm
 from .database import connect_to_database, execute_query
-#from wtforms.widgets.html5 import NumberInput
-#from wtforms.fields.html5 import DateField
-#from wtforms.validators import DataRequired, Length, NumberRange, ValidationError, AnyOf, Optional
+from wtforms.widgets.html5 import NumberInput
+from wtforms.fields.html5 import DateField
+from wtforms.validators import DataRequired, Length, NumberRange, ValidationError, AnyOf, Optional
+import os
 
 #app = Flask(__name__)
 
-#app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfdj192ta234'
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.route('/')
 @app.route('/index')
@@ -144,10 +146,34 @@ def leases():
       return render_template("leases.html", leases=result)
 
 
-@app.route('/editproperty')
-def editproperty():
-    print("Edit property")
-    return render_template("editproperty.html")
+@app.route('/editproperty/<Property_ID>', methods=['POST', 'GET'])
+def editproperty(Property_ID):
+    print("Editing property")
+    db_connection = connect_to_database()
+
+    if request.method == 'GET':
+      query = 'SELECT Street_Address, Unit_Number, Zip_Code, Square_Feet, Rooms, Bathrooms, Management_Fee, Lease_ID from property WHERE Property_ID = %s' % (Property_ID)
+      result = execute_query(db_connection, query).fetchone()
+      print(result)
+      return render_template("editproperty.html", properties=result)
+
+    if request.method == 'POST':
+      print("Updating property...")
+      Street_Address = request.form['address']
+      Unit_Number = request.form['unitnumber']
+      Zip_Code = request.form['zipcode']
+      Square_Feet = request.form['sf']
+      Rooms = request.form['rooms']
+      Bathrooms = request.form['bathrooms']
+      Management_Fee = request.form['fee']
+      Lease_ID = request.form['leaseid']
+
+      print(request.form)
+      query = 'UPDATE property SET Street_Address = %s, Unit_Number = %s, Zip_Code = %s, Square_Feet = %s, Rooms = %s, Bathrooms = %s, Management_Fee = %s, Lease_ID = %s WHERE Property_ID = %s'
+      data = (Street_Address, Unit_Number, Zip_Code, Square_Feet, Rooms, Bathrooms, Management_Fee, Lease_ID, Property_ID)
+      result = execute_query(db_connection, query, data)
+
+      return redirect('/properties')
 
 
 @app.route('/edittenant')

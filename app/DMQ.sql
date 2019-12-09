@@ -61,7 +61,7 @@ UPDATE owner SET Number_Of_Properties = :numpropsUpdate, Name = :nameUpdate WHER
 UPDATE lease SET End_Date = :enddateInput, Length_Of_Lease = :lengthInput, Rent = :rentInput WHERE Lease_ID = :Lease_ID_From_Update_Form;
 
 --update a property
-UPDATE tenant SET Street_Address = :addressInput, Unit_Number = :uniInput, Zip_Code = :zipInput, Square_Feet = :sqfeetInput, Rooms = :roomsInput, Bathrooms = :bathInput, Management_Fee = :feeInput, Lease_ID = :leaseidInput WHERE property_ID = :Property_ID_From_Update_Form;
+UPDATE property SET Street_Address = :addressInput, Unit_Number = :uniInput, Zip_Code = :zipInput, Square_Feet = :sqfeetInput, Rooms = :roomsInput, Bathrooms = :bathInput, Management_Fee = :feeInput, Lease_ID = :leaseidInput WHERE property_ID = :Property_ID_From_Update_Form;
 
 --update a tenant
 UPDATE tenant SET Property_ID = :propidInput, Lease_ID = :leaseidInput, Name = :nameInput, Credit_Score = :creditInput, Social_Security = :ssnInput, Date_Of_Birth = :dobInput  WHERE Tenant_ID = :Tenant_ID_From_Update_Form;
