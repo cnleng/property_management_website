@@ -17,35 +17,35 @@
         <form id="book-form" action="{{ url_for('editproperty', Property_ID=properties[0]) }}" method="post" class='table-light'>
           <div class="form-group">
             <label for="address">Street Address</label>
-            <input type="text" name="address" class="form-control" value='{{ properties[0] }}''>
+            <input type="text" name="address" class="form-control" value='{{ properties[0] }}'>
           </div>
           <div class="form-group">
             <label for="unitnumber">Unit Number</label>
-            <input type="text" name="unitnumber" class="form-control" value={{ properties[1] }}>
+            <input type="text" name="unitnumber" class="form-control" value='{{ properties[1] }}''>
           </div>
           <div class="form-group">
             <label for="zipcode">Zip Code</label>
-            <input type="text" name="zipcode" class="form-control table-active" value={{ properties[2] }}>
+            <input type="text" name="zipcode" class="form-control table-active" value='{{ properties[2] }}'>
           </div>
           <div class="form-group">
             <label for="sf">Square Footage</label>
-            <input type="text" name="sf" class="form-control" value={{ properties[3] }}>
+            <input type="text" name="sf" class="form-control" value='{{ properties[3] }}'>
           </div>
           <div class="form-group">
             <label for="rooms">Rooms</label>
-            <input type="number" name="rooms" class="form-control" value={{ properties[4] }}>
+            <input type="number" name="rooms" class="form-control" value='{{ properties[4] }}'>
           </div>
           <div class="form-group">
             <label for="bathrooms">Bathrooms</label>
-            <input type="number" name="bathrooms" class="form-control" value={{ properties[5] }}>
+            <input type="number" name="bathrooms" class="form-control" value='{{ properties[5] }}'>
           </div>
           <div class="form-group">
             <label for="fee">Management Fee</label>
-            <input type="number" name="fee" class="form-control" value={{ properties[6] }}>
+            <input type="number" name="fee" class="form-control" value='{{ properties[6] }}'>
           </div>
           <div class="form-group">
             <label for="leaseid">Lease ID</label>
-            <input type="number" name="leaseid" class="form-control" value={{ properties[7] }}>
+            <input type="number" name="leaseid" class="form-control" value='{{ properties[7] }}'>
           </div>
       
           <input type="submit" value="Edit Property" class="btn btn-primary btn-block btn-warning">
