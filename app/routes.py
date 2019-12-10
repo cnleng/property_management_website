@@ -127,6 +127,7 @@ def leases():
       query = "SELECT * FROM lease"
       result = execute_query(db_connection, query).fetchall()
       print(result)
+      print("rendering leases template")
       return render_template("leases.html", leases=result)
 
     if request.method == 'POST':
@@ -210,7 +211,7 @@ def editowner(Owner_ID):
     db_connection = connect_to_database()
 
     if request.method == 'GET':
-      query = 'SELECT Owner_ID, Number_Of_Properties, Name FROM owner WHERE Owner_ID =%s' % (Owner_ID)
+      query = 'SELECT Owner_ID, Number_Of_Properties, Name FROM owner WHERE Owner_ID = %s' % (Owner_ID)
       result = execute_query(db_connection, query).fetchone()
       print(result)
       return render_template('editowner.html', owners=result)
@@ -226,6 +227,29 @@ def editowner(Owner_ID):
       result = execute_query(db_connection, query, data)
       return redirect('/owners')
 
+
+@app.route('/editlease/<Lease_ID>', methods=['POST', 'GET'])
+def editlease(Lease_ID):
+    print('Editing lease...')
+    db_connection = connect_to_database()
+
+    if request.method == 'GET':
+      query = 'SELECT Lease_ID, End_Date, Length_Of_Lease, Rent FROM lease WHERE Lease_ID = %s' % (Lease_ID)
+      result = execute_query(db_connection, query).fetchone()
+      print(result)
+      return render_template('editlease.html', leases=result)
+
+    if request.method == 'POST':
+      print('Updating lease...')
+      End_Date = request.form['end_date']
+      Length_Of_Lease = request.form['length']
+      Rent = request.form['rent']
+
+      print(request.form)
+      query = 'UPDATE lease SET End_Date = %s, Length_Of_Lease = %s, Rent = %s WHERE Lease_ID = %s'
+      data = (End_Date, Length, Rent, Lease_ID)
+      result = execute_query(db_connection, query, data)
+      return redirect('/leases')
 
 
 
