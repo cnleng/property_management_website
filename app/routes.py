@@ -247,7 +247,7 @@ def editlease(Lease_ID):
 
       print(request.form)
       query = 'UPDATE lease SET End_Date = %s, Length_Of_Lease = %s, Rent = %s WHERE Lease_ID = %s'
-      data = (End_Date, Length, Rent, Lease_ID)
+      data = (End_Date, Length_Of_Lease, Rent, Lease_ID)
       result = execute_query(db_connection, query, data)
       return redirect('/leases')
 
