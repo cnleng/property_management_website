@@ -59,10 +59,10 @@
             {{ lease[3] }}
           </td>
           <td>
-            <a class="btn btn-warning" href="{{ url_for('editlease') }}">Edit</a>
+            <a class="btn btn-warning" href="{{ url_for('editlease'), Lease_ID=lease[0] }}">Edit</a>
           </td>
           <td>
-            <a class="btn btn-danger" href="{{ url_for('deletelease', Lease_ID=lease[0]) }}"" method='post'>Delete</a>
+            <a class="btn btn-danger" href="{{ url_for('deletelease', Lease_ID=lease[0]) }}" method='post'>Delete</a>
             </td>
         </tr>
         

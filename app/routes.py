@@ -152,7 +152,7 @@ def editproperty(Property_ID):
     db_connection = connect_to_database()
 
     if request.method == 'GET':
-      query = 'SELECT Street_Address, Unit_Number, Zip_Code, Square_Feet, Rooms, Bathrooms, Management_Fee, Lease_ID from property WHERE Property_ID = %s' % (Property_ID)
+      query = 'SELECT Property_ID, Street_Address, Unit_Number, Zip_Code, Square_Feet, Rooms, Bathrooms, Management_Fee, Lease_ID from property WHERE Property_ID = %s' % (Property_ID)
       result = execute_query(db_connection, query).fetchone()
       print(result)
       return render_template("editproperty.html", properties=result)
@@ -183,7 +183,7 @@ def edittenant(Tenant_ID):
     db_connection = connect_to_database()
 
     if request.method == 'GET':
-      query = 'SELECT Property_ID, Lease_ID, Name, Credit_Score, Social_Security, Date_Of_Birth from tenant WHERE Tenant_ID = %s' % (Tenant_ID)
+      query = 'SELECT Tenant_ID, Property_ID, Lease_ID, Name, Credit_Score, Social_Security, Date_Of_Birth from tenant WHERE Tenant_ID = %s' % (Tenant_ID)
       result = execute_query(db_connection, query).fetchone()
       print(result)
       return render_template("edittenant.html", tenants=result)
@@ -204,16 +204,31 @@ def edittenant(Tenant_ID):
       return redirect('/tenants')
 
 
-@app.route('/editowner')
-def editowner():
-    print("Edit owner.")
-    return render_template("editproperty.html")
+@app.route('/editowner/<Owner_ID>', methods=['POST', 'GET'])
+def editowner(Owner_ID):
+    print("Editing owner.")
+    db_connection = connect_to_database()
+
+    if request.method == 'GET':
+      query = 'SELECT Owner_ID, Number_Of_Properties, Name FROM owner WHERE Owner_ID =%s' % (Owner_ID)
+      result = execute_query(db_connection, query).fetchone()
+      print(result)
+      return render_template('editowner.html', owners=result)
+
+    if request.method == 'POST':
+      print('Updating owner...')
+      Number_Of_Properties = request.form['number']
+      Name = request.form['name']
+
+      print(request.form)
+      query = 'UPDATE owner SET Number_Of_Properties = %s, Name = %s WHERE Owner_ID = %s'
+      data = (Number_Of_Properties, Name, Owner_ID)
+      result = execute_query(db_connection, query, data)
+      return redirect('/owners')
 
 
-@app.route('/editlease')
-def editlease():
-    print("Edit lease.")
-    return render_template("editproperty.html")
+
+
 
 
 @app.route('/deleteproperty/<Property_ID>')
@@ -255,7 +270,7 @@ def deleteowner(Owner_ID):
     query2 = "SELECT * FROM owner"
     result = execute_query(db_connection, query2).fetchall()
     print(result)
-    return render_template("owner.html", owners=result)    
+    return render_template("owners.html", owners=result)    
 
 
 @app.route('/deletelease/<Lease_ID>')

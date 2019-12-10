@@ -51,7 +51,7 @@
             {{ owner[2] }}
           </td>
           <td>
-              <a class="btn btn-warning" href="{{ url_for('editowner') }}">Edit</a>
+              <a class="btn btn-warning" href="{{ url_for('editowner', Owner_ID=owner[0]) }}">Edit</a>
             </td>
             <td>
               <a class="btn btn-danger" href="{{ url_for('deleteowner', Owner_ID=owner[0]) }}"" method='post'>Delete</a>
